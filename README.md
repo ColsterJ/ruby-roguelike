@@ -4,6 +4,13 @@ This is a modified version of the Roguelike game from Academy Pittsburgh Session
 
 This code uses a library called [Gosu](https://www.libgosu.org/index.html) to handle graphics, sound, and input. You must install it before running the script.
 
+## A few notes on how this changes the game
+* The game code is now contained within a class 'Game'. This class extends 'Gosu::Window', which is required for Gosu's features. An update() function runs every frame to handle game logic, and a draw() function runs every frame to produce the graphics you see onscreen.
+* Sound effects play when you move, run into a wall, pick up treasure, or get teleported.
+* There is (kind of) a player avatar at the bottom of the screen that changes in reaction to the game.
+* For now, the game screen is still text-based, and the graphical features exist in the form of being able to change fonts and the player avatar. I'll be adding graphical tiles to replace the text.
+* The fact that tiles, various tile types, and the player were already contained within classes makes it pretty simple to add graphics to the game without too many changes. This is a testament to the usefulness of OOP.
+
 ## Installing Gosu on Windows
 Simply type this into a command line:
 ```
