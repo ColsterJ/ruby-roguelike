@@ -1,5 +1,7 @@
 # ruby-roguelike
 
+![Screenshot of the game](https://github.com/coljonesdev/ruby-roguelike/blob/master/screenshot.png "Screenshot")
+
 This is a modified version of the Roguelike game from Academy Pittsburgh Session 9 Week 3. This version uses graphical display instead of using the text-based console, and also has sound effects.
 
 This code uses a library called [Gosu](https://www.libgosu.org/index.html) to handle graphics, sound, and input. You must install it before running the script.
@@ -30,5 +32,3 @@ cd ruby-roguelike
 ruby roguelike.rb
 ```
 Use the WASD or Arrow keys to move the player, press 'T' to switch fonts, or press 'Q' to quit.
-
-![Screenshot of the game](https://github.com/coljonesdev/ruby-roguelike/blob/master/screenshot.png "Screenshot")
