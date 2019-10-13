@@ -4,6 +4,8 @@ This is a modified version of the Roguelike game from Academy Pittsburgh Session
 
 This code uses a library called [Gosu](https://www.libgosu.org/index.html) to handle graphics, sound, and input. You must install it before running the script.
 
+For the sake of comparison, [here's the original roguelike code](https://gist.github.com/coljonesdev/a069a3fcb4502431d3d95566d466f6b0) that John made during class.
+
 ## A few notes on how this changes the game
 * The game code is now contained within a class 'Game'. This class extends 'Gosu::Window', which is required for Gosu's features. An update() function runs every frame to handle game logic, and a draw() function runs every frame to produce the graphics you see onscreen.
 * Sound effects play when you move, run into a wall, pick up treasure, or get teleported.
