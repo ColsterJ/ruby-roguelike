@@ -1,6 +1,6 @@
 # ruby-roguelike
 
-![Screenshot of the game](https://github.com/coljonesdev/ruby-roguelike/blob/master/screenshot.png "Screenshot")
+![Screenshot of the game](https://github.com/coljonesdev/ruby-roguelike/blob/master/assets/screenshot.png "Screenshot")
 
 This is a modified version of the Roguelike game from Academy Pittsburgh Session 9 Week 3. This version uses graphical display instead of using the text-based console, and also has sound effects.
 

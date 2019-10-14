@@ -41,7 +41,7 @@ class Catnip < Tile
         super
         @display = "<c=00aa00>%</c>"
         @message = "OOH, cat nip! <3"
-        @sound = Gosu::Sample.new("purr.wav")
+        @sound = Gosu::Sample.new("assets/purr.wav")
     end
 end
 
@@ -55,7 +55,7 @@ end
 class Portal < Tile
     def initialize x, y
         super()
-        @sound = Gosu::Sample.new("swoosh.wav")
+        @sound = Gosu::Sample.new("assets/swoosh.wav")
         @display = "<c=00ffff>P</c>"
         @new_x = x
         @new_y = y
@@ -75,7 +75,7 @@ class Treasure < Tile
         @score = 10
         @display = "<c=00ff00>n</c>"
         @message = "Oh yay, trea<c=00ff00>$</c>ure!#{7.chr}"
-        @sound = Gosu::Sample.new("money.wav")
+        @sound = Gosu::Sample.new("assets/money.wav")
         @times_i_got_stepped_on = 0
     end
 
@@ -117,15 +117,15 @@ class Game < Gosu::Window
         @text_output = ""
         @trigger_update = true
 
-        @polite_cat = Gosu::Image.new("polite_cat.png")
-        @surprised_cat = Gosu::Image.new("surprised_cat.png")
+        @polite_cat = Gosu::Image.new("assets/polite_cat.png")
+        @surprised_cat = Gosu::Image.new("assets/surprised_cat.png")
         @cat = @polite_cat
 
-        @footstep_sound = Gosu::Sample.new("footstep.wav")
-        @wall_sound = Gosu::Sample.new("ouch.wav")
+        @footstep_sound = Gosu::Sample.new("assets/footstep.wav")
+        @wall_sound = Gosu::Sample.new("assets/ouch.wav")
 
-        @vga_font = Gosu::Font.new(24, {name: "PxPlus_VGA_SquarePx.ttf"})
-        @fira_code_font = Gosu::Font.new(24, {name: "FiraCode-Medium.ttf"})
+        @vga_font = Gosu::Font.new(24, {name: "assets/PxPlus_VGA_SquarePx.ttf"})
+        @fira_code_font = Gosu::Font.new(24, {name: "assets/FiraCode-Medium.ttf"})
         @font = @fira_code_font
 
         @grid = Array.new(10) {Array.new(10) {Tile.new}}
