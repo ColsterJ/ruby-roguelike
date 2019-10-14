@@ -1,5 +1,15 @@
 require "gosu"
 
+$tiles = {
+    "grass" => Gosu::Image.new("assets/tiles/floor31.gif", {tileable: true, retro: true}),
+    "catnip" => Gosu::Image.new("assets/tiles/floor32.gif", {tileable: true, retro: true}),
+    "portal" => Gosu::Image.new("assets/tiles/openDoor23.gif", {tileable: true, retro: true}),
+    "wall1" => Gosu::Image.new("assets/tiles/crate.gif", {tileable: true, retro: true}),
+    "treasure" => Gosu::Image.new("assets/tiles/gold.bmp", {tileable: true, retro: true}),
+    "treasure_used" => Gosu::Image.new("assets/tiles/floor31.gif", {tileable: true, retro: true}),
+    "player" => Gosu::Image.new("assets/tiles/player.bmp", {tileable: true, retro: true})
+}
+
 class Tile
     # if something is there or not
     attr_accessor :solid # true/false based on whether the character can stand there or not
@@ -13,7 +23,8 @@ class Tile
         @solid = false
         @score = 1
         @damage = 0
-        @display = "<c=808080>.</c>"
+        # @display = "<c=808080>.</c>"
+        @display = "grass"
         @message = "Fwffffwwww"
         @sound = nil
     end
@@ -31,7 +42,8 @@ class Wall < Tile
     def initialize
         super
         @solid = true
-        @display = "<c=ff00ff>W</c>"
+        # @display = "<c=ff00ff>W</c>"
+        @display = "wall1"
         @message = "Oh boy, this is bad"
     end
 end
@@ -39,7 +51,8 @@ end
 class Catnip < Tile
     def initialize
         super
-        @display = "<c=00aa00>%</c>"
+        # @display = "<c=00aa00>%</c>"
+        @display = "catnip"
         @message = "OOH, cat nip! <3"
         @sound = Gosu::Sample.new("assets/purr.wav")
     end
@@ -48,7 +61,8 @@ end
 class Invisiblewall < Wall
     def initialize
         super
-        @display = "<c=606060>.</c>"
+        # @display = "<c=606060>.</c>"
+        @display = "grass"
     end
 end
 
@@ -56,7 +70,8 @@ class Portal < Tile
     def initialize x, y
         super()
         @sound = Gosu::Sample.new("assets/swoosh.wav")
-        @display = "<c=00ffff>P</c>"
+        # @display = "<c=00ffff>P</c>"
+        @display = "portal"
         @new_x = x
         @new_y = y
     end
@@ -73,7 +88,8 @@ class Treasure < Tile
     def initialize
         super
         @score = 10
-        @display = "<c=00ff00>n</c>"
+        # @display = "<c=00ff00>n</c>"
+        @display = "treasure"
         @message = "Oh yay, trea<c=00ff00>$</c>ure!#{7.chr}"
         @sound = Gosu::Sample.new("assets/money.wav")
         @times_i_got_stepped_on = 0
@@ -82,7 +98,7 @@ class Treasure < Tile
     def step player
         super
         @times_i_got_stepped_on += 1
-        @display = "<c=007700>o</c>"
+        @display = "treasure_used"
         if @times_i_got_stepped_on > 1
             @message = "It is now empty"
             @sound = nil
@@ -107,12 +123,13 @@ class Player
 end
 
 class Game < Gosu::Window
-    WIDTH = 640
-    HEIGHT = 480
+    WIDTH = 1280
+    HEIGHT = 720
 
     def initialize
         super WIDTH, HEIGHT
         self.caption = "Roguelike with barely any graphics"
+        self.fullscreen = true
 
         @text_output = ""
         @trigger_update = true
@@ -170,25 +187,25 @@ class Game < Gosu::Window
 
         @text_output = ""
         @text_output += "Roguelike with a drop of graphics & sound\nFullscreen: [Alt + Enter] ([Command + F] on Mac)\n[Q]: Quit     [T]: Change Font\n\n"
-    
-        @grid.each_with_index do |row, row_index|
-            row.each_with_index do |cell, cell_index|
-                if row_index == @player.y && cell_index == @player.x # the row we're on == player_y and the column we're on == player_x
-                    @text_output += @player.display
-                else
-                    @text_output += cell.display
-                end
-            end
-            @text_output += "\n"
-        end
-        # @text_output += "|========|\n"
+        @text_output += "|========|\n"
         @text_output += "Score: #{@player.score}\n"
         @text_output += @grid[@player.y][@player.x].message + "\n"
-        # @text_output += "|========|\n"
 
         if @grid[@player.y][@player.x].sound
             @grid[@player.y][@player.x].sound.play()
         end
+
+        # @grid.each_with_index do |row, row_index|
+        #     row.each_with_index do |cell, cell_index|
+        #         if row_index == @player.y && cell_index == @player.x # the row we're on == player_y and the column we're on == player_x
+        #             @text_output += @player.display
+        #         else
+        #             @text_output += cell.display
+        #         end
+        #     end
+        #     @text_output += "\n"
+        # end
+        # @text_output += "|========|\n"
 
         # Before I move
         # (button_up checks player input, see that function)
@@ -214,10 +231,29 @@ class Game < Gosu::Window
     
     def draw
         # @text.draw 0, 0, 0
+        draw_grid(0, 80, 0, 2)
         @font.draw_markup(@text_output, 0, 0, 0)          # using 'draw_markup' allows you to use colors mid-sentence
-        @cat.draw 0, 400, 0
+        @cat.draw 560, 0, 0
         # @text.draw 0, 0, 0, 1, 1, Gosu::Color.argb(0xff_00ffff)
         # ^ this would draw the output in Aqua color
+    end
+
+    def draw_grid(x_offset, y_offset, z=0, scale=1)
+        tile_size = 32
+
+        @grid.each_with_index do |row, row_index|
+            row.each_with_index do |cell, cell_index|
+                # @text_output += cell.display
+                cursor_x = cell_index * tile_size * scale
+                cursor_y = row_index * tile_size * scale
+                #draw(x, y, z, scale_x = 1, scale_y = 1, color = 0xff_ffffff, mode = :default) ⇒ void 
+                $tiles[cell.display].draw(cursor_x + x_offset, cursor_y + y_offset, z, scale, scale)
+
+                if row_index == @player.y && cell_index == @player.x # the row we're on == player_y and the column we're on == player_x
+                    $tiles["player"].draw(cursor_x + x_offset, cursor_y + y_offset, z, scale, scale)
+                end
+            end
+        end
     end
 
     def button_down(id)
