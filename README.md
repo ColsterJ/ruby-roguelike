@@ -4,7 +4,7 @@
 
 This is a modified version of the Roguelike game from Academy Pittsburgh Session 9 Week 3. This version uses graphical display instead of using the text-based console, and also has sound effects.
 
-This code uses a library called [Gosu](https://www.libgosu.org/index.html) to handle graphics, sound, and input. You must install it before running the script.
+This code uses a library called [Gosu](https://www.libgosu.org/index.html) to handle graphics, sound, and input. You must install it before running the script. Of course, Ruby must also be installed.
 
 For the sake of comparison, [here's the original roguelike code](https://gist.github.com/coljonesdev/a069a3fcb4502431d3d95566d466f6b0) that John made during class.
 
@@ -22,7 +22,27 @@ gem install gosu
 ```
 
 ## Installing Gosu on a Mac
-If you are running this on a Mac, see [this page](https://github.com/gosu/gosu/wiki/Getting-Started-on-OS-X) for installation instructions.
+These steps should work even if you can't log in as root on your Mac (su/sudo).
+
+1. Install Homebrew, then use that to install SDL2 (required for Gosu to work):
+```
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+brew install sdl2
+```
+
+2. __Skip if Ruby is installed and working.__ If you haven't done a proper Ruby install, do that now. Even though macOS includes Ruby, it may be outdated/incomplete:
+```
+brew install rbenv
+rbenv install 2.6.5
+```
+
+3. __Skip if Ruby is installed and working.__ Close and re-open Terminal!
+
+4. Finally, run this command:
+```
+gem install gosu
+```
 
 ## Running Ruby-Roguelike
 Once Gosu is installed, you should clone the repository, then you can run ruby-roguelike like any other script.
