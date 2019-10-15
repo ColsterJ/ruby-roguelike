@@ -1,5 +1,6 @@
 require "gosu"
 
+$tile_size = 32
 $tiles = {
     "grass" => Gosu::Image.new("assets/tiles/floor31.gif", {tileable: true, retro: true}),
     "catnip" => Gosu::Image.new("assets/tiles/floor32.gif", {tileable: true, retro: true}),
@@ -123,13 +124,12 @@ class Player
 end
 
 class Game < Gosu::Window
-    WIDTH = 1280
+    WIDTH = 640
     HEIGHT = 720
 
     def initialize
         super WIDTH, HEIGHT
-        self.caption = "Roguelike with barely any graphics"
-        self.fullscreen = true
+        self.caption = "Roguelike"
 
         @text_output = ""
         @trigger_update = true
@@ -186,10 +186,11 @@ class Game < Gosu::Window
         cat_react()
 
         @text_output = ""
-        @text_output += "Roguelike with a drop of graphics & sound\nFullscreen: [Alt + Enter] ([Command + F] on Mac)\n[Q]: Quit     [T]: Change Font\n\n"
-        @text_output += "|========|\n"
-        @text_output += "Score: #{@player.score}\n"
-        @text_output += @grid[@player.y][@player.x].message + "\n"
+        @text_output += "  Ruby-Roguelike                    Score: #{@player.score}\n"
+        @text_output += "  ~ " + @grid[@player.y][@player.x].message + " ~\n"
+
+        # @text_output += "  ----------------" + @grid[@player.y][@player.x].message + "----------------\n"
+        # @text_output += "             press [Escape] to quit\n"
 
         if @grid[@player.y][@player.x].sound
             @grid[@player.y][@player.x].sound.play()
@@ -232,8 +233,8 @@ class Game < Gosu::Window
     def draw
         # @text.draw 0, 0, 0
         draw_grid(0, 80, 0, 2)
-        @font.draw_markup(@text_output, 0, 0, 0)          # using 'draw_markup' allows you to use colors mid-sentence
-        @cat.draw 560, 0, 0
+        @font.draw_markup(@text_output, 0, 16, 0)          # using 'draw_markup' allows you to use colors mid-sentence
+        @cat.draw (@grid_width * $tile_size*2-@cat.width), 0, 0
         # @text.draw 0, 0, 0, 1, 1, Gosu::Color.argb(0xff_00ffff)
         # ^ this would draw the output in Aqua color
     end
@@ -259,14 +260,8 @@ class Game < Gosu::Window
     def button_down(id)
         @trigger_update = true
 
-        if id == Gosu::KB_Q
+        if id == Gosu::KB_Q || id == Gosu::KB_ESCAPE
             close
-        elsif id == Gosu::KB_T
-            if @font == @fira_code_font
-                @font = @vga_font
-            else
-                @font = @fira_code_font
-            end
         elsif id == Gosu::KB_A || id == Gosu::KB_LEFT
             if @player.x > 0 && @grid[@player.y][@player.x - 1].solid == false 
                 @player.x = @player.x - 1
