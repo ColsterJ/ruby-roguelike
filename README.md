@@ -2,9 +2,9 @@
 
 ![Screenshot of the game](https://github.com/coljonesdev/ruby-roguelike/blob/master/assets/screenshot.png "Screenshot")
 
-This is a modified version of the Roguelike game from Academy Pittsburgh Session 9 Week 3. This version uses graphical display instead of using the text-based console, and also has sound effects. For the sake of comparison, [here's the original roguelike code](https://gist.github.com/coljonesdev/a069a3fcb4502431d3d95566d466f6b0) that John made during class.
+This is a graphical version of the Roguelike game from Academy Pittsburgh Session 9 Week 3. The grid is displayed with images instead of text, and sound effects have been added. For the sake of comparison, [here's the original roguelike code](https://gist.github.com/coljonesdev/a069a3fcb4502431d3d95566d466f6b0) that John made during class.
 
-This code uses a library called [Gosu](https://www.libgosu.org/index.html) to handle graphics, sound, and input. You must install it before running the script. Of course, Ruby must also be installed.
+This uses a library called [Gosu](https://www.libgosu.org/index.html) to handle graphics, sound, and input. You must install it before running the script. Of course, Ruby must also be installed. (See below for instructions)
 
 ## What changed between the original program and this code
 * The game code is now contained within a class 'Game'. This class extends 'Gosu::Window', which is required for Gosu's features. An update() function runs every frame to handle game logic, and a draw() function runs every frame to produce the graphics you see onscreen.
@@ -48,4 +48,4 @@ git clone https://github.com/coljonesdev/ruby-roguelike.git
 cd ruby-roguelike
 ruby roguelike.rb
 ```
-Use the WASD or Arrow keys to move the player, press 'T' to switch fonts, or press 'Q' to quit.
+Use the WASD or Arrow keys to move the player. Press 'Escape' or 'Q' to quit.
