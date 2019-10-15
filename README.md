@@ -2,17 +2,14 @@
 
 ![Screenshot of the game](https://github.com/coljonesdev/ruby-roguelike/blob/master/assets/screenshot.png "Screenshot")
 
-This is a modified version of the Roguelike game from Academy Pittsburgh Session 9 Week 3. This version uses graphical display instead of using the text-based console, and also has sound effects.
+This is a modified version of the Roguelike game from Academy Pittsburgh Session 9 Week 3. This version uses graphical display instead of using the text-based console, and also has sound effects. For the sake of comparison, [here's the original roguelike code](https://gist.github.com/coljonesdev/a069a3fcb4502431d3d95566d466f6b0) that John made during class.
 
 This code uses a library called [Gosu](https://www.libgosu.org/index.html) to handle graphics, sound, and input. You must install it before running the script. Of course, Ruby must also be installed.
 
-For the sake of comparison, [here's the original roguelike code](https://gist.github.com/coljonesdev/a069a3fcb4502431d3d95566d466f6b0) that John made during class.
-
-## A few notes on how this changes the game
+## What changed between the original program and this code
 * The game code is now contained within a class 'Game'. This class extends 'Gosu::Window', which is required for Gosu's features. An update() function runs every frame to handle game logic, and a draw() function runs every frame to produce the graphics you see onscreen.
 * Sound effects play when you move, run into a wall, pick up treasure, or get teleported.
-* There is (kind of) a player avatar at the bottom of the screen that changes in reaction to the game.
-* __For now, the game screen is still largely text-based,__ and the graphical features exist in the form of being able to change fonts and the player avatar. __Some time soon, I'll be adding graphical tiles to replace the text.__
+* The grid is shown using graphical tiles instead of text symbols.
 * The fact that tiles, various tile types, and the player were already contained within classes makes it pretty simple to add graphics to the game without too many changes. This is a testament to the usefulness of OOP.
 
 ## Installing Gosu on Windows
