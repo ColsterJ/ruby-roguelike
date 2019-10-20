@@ -23,7 +23,7 @@ class Tile
 
     def initialize
         @solid = false
-        @score = 1
+        @score = 0
         @damage = 0
         # @display = "<c=808080>.</c>"
         @display = "grass"
